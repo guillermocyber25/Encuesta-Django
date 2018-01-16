@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{%block content%}
+
+
+<h1>bienvenido</h1>
+
+
+<div class="container">
+  <h2>Eventos</h2>
+  <p>Selecciona el evento a evaluar</p>            
+<form action="" method="post">	
+  {% csrf_token %}
+  <div class="form-group">
+
+
+   <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Fecha inicio</th>
+        <th>Fecha fin</th>
+        <th>Seleccionar<th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dato in event %}
+      <tr>
+        <td>{{dato.nombre}}</td>
+        <td>{{dato.descripcion}}</td>
+        <td>{{dato.fecha_in}}</td>
+        <td>{{dato.fecha_fin}}</td>
+        <td>
+        	<div class="radio">
+        	 <label><input type="radio" name="evento" value="{{dato.id_evento}}">Seleccionar</label>
+            </div>
+        </td>    
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>
+</div>
+
+ <button type="submit" class="btn btn-default">Enviar</button>
+</form>
+
+{%endblock%}

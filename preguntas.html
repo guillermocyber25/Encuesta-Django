@@ -1,0 +1,115 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container">
+  {{session}}
+  <h2>Preguntas</h2>
+  <p>Aquí se muestran las preguntas registradas</p>
+ 
+<form action="" method="post">  
+  {% csrf_token %}
+  <div class="form-group">
+
+ <table class="table">
+    <thead>
+      <tr>
+        {% for confe in conferencia%}
+        {% if confe.id  = 6 %}
+        <th>{{confe.nombre}}</th>
+
+        <th>OPCIÓN</th>
+        <th>OPCIÓN</th>
+        <th>OPCIÓN</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+     
+     
+        {%for relacion in rel%}
+     {%if relacion.id_conf == confe.id_conf%}
+        {% for preguntas in preg %}
+
+           {% if preguntas.id_pregunta == relacion.id_pregunta %}
+             <tr>
+            <td>{{preguntas.pregunta}}</td>
+         <!-- opcion -->
+         {% if relacion.tipo == "opcion" %}           
+         <td>
+
+         <select class="form-control" name="{'id_relp': {{relacion.id_relp}}L}">
+            <option value="">seleccione opción</option>
+            <option value="1">Excelente</option>
+            <option value="2">Bueno</option>
+            <option value="3">Regular</option>            
+        
+         </select>
+        </td>
+        {% endif %}
+        <!--termina opción-->
+
+        <!--cerrada-->
+        {%if relacion.tipo == "cerrada"%}
+        <td>
+         <select class="form-control" name = "{'id_relp': {{relacion.id_relp}}L}">
+            <option value="">seleccione opción</option>
+            <option value="1">Sí</option>
+            <option value="2">NO</option>
+         </select>
+        </td>
+        {% endif %}
+        <!--termina cerrada-->
+
+        <!-- texto -->
+        {%if relacion.tipo == "texto" %}
+        <td>
+        <textarea name="{'id_relp': {{relacion.id_relp}}L}" class="form-control" rows="6"></textarea>
+        </td>
+        {% endif %}
+        <!--termina texto-->
+
+        <!--multiple-->
+        {%if relacion.tipo == "multiple"%}
+        <td>
+         <select class="form-control" name="{'id_relp': {{relacion.id_relp}}L}">
+            <option value="">seleccione opción</option>
+            <option value="1">FESE</option>
+            <option value="2">Redes Sociales</option>
+            <option value="3">Área de Vinculación</option>
+            <option value="4">Líder 2016</option>                   
+            <option value="5">Otros</option>
+         </select>
+        </td>
+        {% endif %}
+        <!--termina multiple-->
+
+
+
+        <!--tiempo-->
+        {%if relacion.tipo == "tiempo"%}
+        <td>
+         <select class="form-control" name="{'id_relp': {{relacion.id_relp}}L}">
+            <option value="">seleccione opción</option>
+            <option value="1">1 mes</option>
+            <option value="2">2 meses</option>
+            <option value="3">3 meses</option>
+         </select>
+        </td>
+        {% endif %}
+        <!--tiempo-->
+        </tr> 
+           {% endif %}
+        {% endfor %}
+      {% endif %}  
+   {% endfor %}
+              
+      
+      
+      
+    </tbody>
+    {% endfor %} 
+  </table>
+</div>
+<button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+</form>
+ 
+{% endblock %}
